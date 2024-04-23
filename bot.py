@@ -2,7 +2,7 @@ import os
 from telegram.ext import CallbackContext, CallbackQueryHandler, filters
 from telegram import Update, Bot, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
-from telegram import InputFile
+from telegram import InputFile 
 from dotenv import load_dotenv
 # Variables:
 load_dotenv()
@@ -202,7 +202,8 @@ def handle_response(text: str, context: ContextTypes, update: Update):
 async def handle_message(update: Update, context: ContextTypes):
     message_type = update.message.chat.type
     text = update.message.text
-
+    if message_type == 'private':  # Mensaje en chat privado
+        text = update.message.text.lower() if update.message else None
     if message_type == 'group':
         if text.startswith(user_name):
             new_text = text.replace(user_name, '')
