@@ -4,10 +4,13 @@ from telegram import Update, Bot, InlineKeyboardMarkup, InlineKeyboardButton, Re
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 from telegram import InputFile 
 from dotenv import load_dotenv
+from text_processing import handle_response
+
 # Variables:
 load_dotenv()
 token = os.getenv('TOKEN')
 bot = Bot(token=token)
+
 # Rutas:
 PATH = './BOULEVARD'
 vapers_path = PATH + '/vapers'
@@ -17,38 +20,18 @@ image_path = PATH + '/Asset-2.jpeg'
 image_bye = PATH + '/GFgEEU-WUAExx4B.jpeg'
 
 # Vapers
-vaper1 = vapers_path + '/vaper1.png'
-vaper2 = vapers_path + '/vaper2.png'
-vaper3 = vapers_path + '/vaper3.png'
-vaper4 = vapers_path + '/vaper4.png'
-vaper5 = vapers_path + '/vaper5.png'
+# vaper1 = vapers_path + 'vaper1.png'
+vaper_images = [f'{vapers_path}/vaper{i}.png' for i in range(1, 6)]
 
 # Candies:
-candy1 = candy_path + '/candy1.jpeg'
-candy2 = candy_path + '/candy2.jpeg'
-candy3 = candy_path + '/candy3.jpeg'
-candy4 = candy_path + '/candy4.jpeg'
+# candy1 = candy_path + 'candy1.jpeg'
+candy_images = [f'{candy_path}/candy{i}.jpeg' for i in range(1, 5)]
 
 # Weed
-weed1 = weed_path + '/weed1.jpg'
-weed2 = weed_path + '/weed2.jpg'
-weed3 = weed_path + '/weed3.jpg'
-weed4 = weed_path + '/weed4.jpg'
-weed5 = weed_path + '/weed5.jpg'
+# weed1 = weed_path + '/weed1.jpg'
+weed_images = [f'{weed_path}/weed{i}.jpg' for i in range(1, 6)]
 
 # Comandos:
-
-# Comandos:
-# async def start(update: Update, context: ContextTypes):
-#     # Crear los botones
-#     keyboard = [
-#         ['Vapers', 'Dulces'],
-#         ['Cultivos', 'Ayuda']
-#     ]
-#     # Adjuntar los botones al mensaje de bienvenida
-#     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-#     await update.message.reply_text("Hola, soy un King. ¿En qué puedo ayudarte?\nElige una opción:", reply_markup=reply_markup)
-
 async def start(update: Update, context: ContextTypes):
     # Crear los botones
     keyboard = [
@@ -65,39 +48,11 @@ async def start(update: Update, context: ContextTypes):
 ## Vapers:
 async def vapers(update: Update, context: ContextTypes):
     # Crear el menú de selección de imágenes de Vapers
-    keyboard = [
-        [InlineKeyboardButton("Vaper 1", callback_data='vaper1')],
-        [InlineKeyboardButton("Vaper 2", callback_data='vaper2')],
-        [InlineKeyboardButton("Vaper 3", callback_data='vaper3')],
-        [InlineKeyboardButton("Vaper 4", callback_data='vaper4')],
-        [InlineKeyboardButton("Vaper 5", callback_data='vaper5')]
-    ]
+    keyboard = [[InlineKeyboardButton(f"Vaper {i}", callback_data=f'vaper{i}')] for i in range(1, 6)]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text("Selecciona un tipo de Vaper:", reply_markup=reply_markup)
 
 ### Select Vaper:
-# async def handle_vaper_selection(update: Update, context: CallbackContext):
-#     query = update.callback_query
-#     vaper_selected = query.data
-#     vaper_image_path = None
-    
-#     if vaper_selected == 'vaper1':
-#         vaper_image_path = vaper1
-#     elif vaper_selected == 'vaper2':
-#         vaper_image_path = vaper2
-#     elif vaper_selected == 'vaper3':
-#         vaper_image_path = vaper3
-#     elif vaper_selected == 'vaper4':
-#         vaper_image_path = vaper4
-#     elif vaper_selected == 'vaper5':
-#         vaper_image_path = vaper5
-
-#     if vaper_image_path:
-#         with open(vaper_image_path, 'rb') as image_file:
-#             await bot.send_photo(chat_id=query.message.chat_id, photo=InputFile(image_file))
-#     else:
-#         print('No se encontró la imagen del Vaper seleccionado')
-        
 async def handle_vaper_selection(update: Update, context: CallbackContext):
     query = update.callback_query
     vaper_selected = query.data
@@ -105,20 +60,20 @@ async def handle_vaper_selection(update: Update, context: CallbackContext):
     vaper_name = None
     
     if vaper_selected == 'vaper1':
-        vaper_image_path = vaper1
-        vaper_name = "Vaper 1 Gelatho"
+        vaper_image_path = vaper_images[0]
+        vaper_name = "Vaper 1 Gelatho $250.00"
     elif vaper_selected == 'vaper2':
-        vaper_image_path = vaper2
-        vaper_name = "Vaper 2 Flavors"
+        vaper_image_path = vaper_images[1]
+        vaper_name = "Vaper 2 Flavors $320.00"
     elif vaper_selected == 'vaper3':
-        vaper_image_path = vaper3
-        vaper_name = "Vaper 3 Frost"
+        vaper_image_path = vaper_images[2]
+        vaper_name = "Vaper 3 Frost $450.00"
     elif vaper_selected == 'vaper4':
-        vaper_image_path = vaper4
-        vaper_name = "Vaper 4 Nova"
+        vaper_image_path = vaper_images[3]
+        vaper_name = "Vaper 4 Nova $585.00"
     elif vaper_selected == 'vaper5':
-        vaper_image_path = vaper5
-        vaper_name = "Vaper 5 Blaze"
+        vaper_image_path = vaper_images[4]
+        vaper_name = "Vaper 5 Blaze $255.00"
 
     if vaper_image_path:
         with open(vaper_image_path, 'rb') as image_file:
@@ -128,15 +83,9 @@ async def handle_vaper_selection(update: Update, context: CallbackContext):
 
 
 ## Candies:
-
 async def candies(update: Update, context: ContextTypes):
     # Crear el menú de selección de imágenes de Dulces con THC
-    keyboard = [
-        [InlineKeyboardButton("Candy 1", callback_data='candy1')],
-        [InlineKeyboardButton("Candy 2", callback_data='candy2')],
-        [InlineKeyboardButton("Candy 3", callback_data='candy3')],
-        [InlineKeyboardButton("Candy 4", callback_data='candy4')],
-    ]
+    keyboard = [[InlineKeyboardButton(f"Candy {i}", callback_data=f'candy{i}')] for i in range(1, 5)]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text("Selecciona un tipo de Dulces con THC:", reply_markup=reply_markup)
 
@@ -145,86 +94,72 @@ async def handle_candy_selection(update: Update, context: CallbackContext):
     query = update.callback_query
     candy_selected = query.data
     candy_image_path = None
+    candy_name = None
     
     if candy_selected == 'candy1':
-        candy_image_path = candy1
+        candy_image_path = candy_images[0]
+        candy_name = "Candy 1 Gelatho"
     elif candy_selected == 'candy2':
-        candy_image_path = candy2
+        candy_image_path = candy_images[1]
+        candy_name = "Candy 2 Flavors"
     elif candy_selected == 'candy3':
-        candy_image_path = candy3
+        candy_image_path = candy_images[2]
+        candy_name = "Candy 3 Frost"
     elif candy_selected == 'candy4':
-        candy_image_path = candy4
+        candy_image_path = candy_images[3]
+        candy_name = "Candy 4 Nova"
 
     if candy_image_path:
         with open(candy_image_path, 'rb') as image_file:
-            await bot.send_photo(chat_id=query.message.chat_id, photo=InputFile(image_file))
+            await bot.send_photo(chat_id=query.message.chat_id, photo=InputFile(image_file), caption=candy_name)
     else:
-        print('No se encontró la imagen del Dulce con THC seleccionado')
+        print('No se encontró la imagen del Dulce seleccionado')
 
 ## Weed:
 async def weed(update: Update, context: ContextTypes):
-    # Crear el menú de selección de imágenes de Vapers
-    keyboard = [
-        [InlineKeyboardButton("Weed 1", callback_data='weed1')],
-        [InlineKeyboardButton("Weed 2", callback_data='weed2')],
-        [InlineKeyboardButton("Weed 3", callback_data='weed3')],
-        [InlineKeyboardButton("Weed 4", callback_data='weed4')],
-        [InlineKeyboardButton("Weed 5", callback_data='weed5')]
-    ]
+    # Crear el menú de selección de imágenes de cultivos.
+    keyboard = [[InlineKeyboardButton(f"Weed {i}", callback_data=f'weed{i}')] for i in range(1, 6)]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text("Contamos con diferentes tipos de Cultivos", reply_markup=reply_markup)
 
+### Select Weed:
 async def handle_weed_selection(update: Update, context: CallbackContext):
     query = update.callback_query
     weed_selected = query.data
     weed_image_path = None
+    weed_name = None
     
     if weed_selected == 'weed1':
-        weed_image_path = weed1
+        weed_image_path = weed_images[0]
+        weed_name = "Cultivo 1"
     elif weed_selected == 'weed2':
-        weed_image_path = weed2
+        weed_image_path = weed_images[1]
+        weed_name = "Cultivo 2"
     elif weed_selected == 'weed3':
-        weed_image_path = weed3
+        weed_image_path = weed_images[2]
+        weed_name = "Cultivo 3"
     elif weed_selected == 'weed4':
-        weed_image_path = weed4
+        weed_image_path = weed_images[3]
+        weed_name = "Cultivo 4"
     elif weed_selected == 'weed5':
-        weed_image_path = weed5
+        weed_image_path = weed_images[4]
+        weed_name = "Cultivo 5"
 
     if weed_image_path:
         with open(weed_image_path, 'rb') as image_file:
-            await bot.send_photo(chat_id=query.message.chat_id, photo=InputFile(image_file))
+            await bot.send_photo(chat_id=query.message.chat_id, photo=InputFile(image_file), caption=weed_name)
     else:
         print('No se encontró la imagen del Cultivo de Weed seleccionado')
 
+
 ## Help:
 async def help(update: Update, context: ContextTypes):
-    await update.message.reply_text('Comparte tus dudas: wa.link/7jvf7u 🫡')
+    await update.message.reply_text("Puedes iniciar la conversación con un Hola, y de ahí ir seleccionando la categoría. Comparte tus dudas: wa.link/7jvf7u 🫡")
+    
 
 ## Custom Conversation:
-def handle_response(text: str, context: ContextTypes, update: Update):
-    processed_text = text.lower()
-    print(processed_text)
-    if 'hola' in processed_text:
-        return 'Hola, ¿Cómo puedo ayudarte?'
-    elif 'quiero comprar' in processed_text:
-        return 'Elige una opción del menú, o inicia con /start'
-    
-    elif 'gracias' in processed_text:
-        return 'Un placer atenderte 😇🤌'
-    
-    elif 'adios' in processed_text:
-        return 'Adiós'
-    elif 'catalogo' in processed_text or 'productos' in processed_text:
-        return 'Enviando el catálogo...'
-   
-    elif 'vaper' in processed_text or 'cigarros' in processed_text:
-        return '/vapers'
-    elif 'dulces' in processed_text or 'candy' in processed_text:
-        return '/candies'
-    elif 'ayuda' in processed_text or 'help' in processed_text:
-        return '¿En que necesitas ayuda? FAQ: /help'
-    else:
-        return 'No te entiendo, favor de presionar: /start'
+# Now text_processing.py
+# """response = handle_response()"""
 
 
 ## Respuestas a mensajes:
@@ -244,7 +179,7 @@ async def handle_message(update: Update, context: ContextTypes):
         await start(update, context)
         return
     
-    elif text.lower() == 'vapers':  # Modificación para responder al comando /vapers
+    elif 'vapers' in text.lower() or '🚬' in text.lower():  # Modificación para responder al comando /vapers
         await vapers(update, context)
         return
     
@@ -273,7 +208,7 @@ async def handle_message(update: Update, context: ContextTypes):
         text = update.message.text
 
         # Verificar si el mensaje es "adiós" y enviar la imagen de despedida
-    if text.lower() == 'adios':
+    if 'adios' in text.lower() or 'adiós' in text.lower():
         if os.path.exists(image_bye):
             with open(image_bye, 'rb') as image_file:
                 await bot.send_photo(chat_id=update.message.chat_id, photo=InputFile(image_file))
