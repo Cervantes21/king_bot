@@ -76,27 +76,56 @@ async def vapers(update: Update, context: ContextTypes):
     await update.message.reply_text("Selecciona un tipo de Vaper:", reply_markup=reply_markup)
 
 ### Select Vaper:
+# async def handle_vaper_selection(update: Update, context: CallbackContext):
+#     query = update.callback_query
+#     vaper_selected = query.data
+#     vaper_image_path = None
+    
+#     if vaper_selected == 'vaper1':
+#         vaper_image_path = vaper1
+#     elif vaper_selected == 'vaper2':
+#         vaper_image_path = vaper2
+#     elif vaper_selected == 'vaper3':
+#         vaper_image_path = vaper3
+#     elif vaper_selected == 'vaper4':
+#         vaper_image_path = vaper4
+#     elif vaper_selected == 'vaper5':
+#         vaper_image_path = vaper5
+
+#     if vaper_image_path:
+#         with open(vaper_image_path, 'rb') as image_file:
+#             await bot.send_photo(chat_id=query.message.chat_id, photo=InputFile(image_file))
+#     else:
+#         print('No se encontró la imagen del Vaper seleccionado')
+        
 async def handle_vaper_selection(update: Update, context: CallbackContext):
     query = update.callback_query
     vaper_selected = query.data
     vaper_image_path = None
+    vaper_name = None
     
     if vaper_selected == 'vaper1':
         vaper_image_path = vaper1
+        vaper_name = "Vaper 1 Gelatho"
     elif vaper_selected == 'vaper2':
         vaper_image_path = vaper2
+        vaper_name = "Vaper 2 Flavors"
     elif vaper_selected == 'vaper3':
         vaper_image_path = vaper3
+        vaper_name = "Vaper 3 Frost"
     elif vaper_selected == 'vaper4':
         vaper_image_path = vaper4
+        vaper_name = "Vaper 4 Nova"
     elif vaper_selected == 'vaper5':
         vaper_image_path = vaper5
+        vaper_name = "Vaper 5 Blaze"
 
     if vaper_image_path:
         with open(vaper_image_path, 'rb') as image_file:
-            await bot.send_photo(chat_id=query.message.chat_id, photo=InputFile(image_file))
+            await bot.send_photo(chat_id=query.message.chat_id, photo=InputFile(image_file), caption=vaper_name)
     else:
         print('No se encontró la imagen del Vaper seleccionado')
+
 
 ## Candies:
 
