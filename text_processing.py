@@ -25,5 +25,5 @@ def handle_response(text: str, context: ContextTypes, update: Update):
     elif '🆘' in processed_text or 'help' in processed_text:
         return '¿En que necesitas ayuda? FAQ: 🧐 /help'
     else:
-        return 'No te entiendo 😵‍💫, favor de presionar: /start 😌 También puedes interactuar conmigo escribiendo "quiero comprar" 😬 \\ También puedes usar palabras clave del producto que quieres. Ejemplo: "cigarro", o usar un Icono "🚬"'
+        return 'No te entiendo 😵‍💫 \n favor de presionar: /start' + '\n' + '😌 También puedes interactuar conmigo escribiendo "quiero comprar"' + '\n' '😬 También puedes usar palabras clave del producto que quieres. \n Ejemplo: "cigarro", o usar un Icono "🚬"'
     
