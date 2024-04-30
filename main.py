@@ -9,6 +9,11 @@ from dotenv import load_dotenv
 from text_processing import handle_response
 from paths_config import *
 
+
+# Create a new Web Server.
+from fastapi import FastAPI, Request
+from waitress import serve
+
 # Constantes:
 load_dotenv()
 token = os.getenv('TOKEN')
@@ -190,14 +195,21 @@ async def handle_message(update: Update, context: ContextTypes):
     if response is not None:
         await update.message.reply_text(response)
         if 'catalogo' in text.lower() or 'productos' in text.lower():
-            await send_catalog_image(update)
+            await send_catalog_video(update)
         text = update.message.text
 
         # Verificar si el mensaje es "adiós" y enviar la imagen de despedida
-    if 'adios' in text.lower() or 'adiós' in text.lower():
+    if 'bye' in text.lower() or '👋' in text.lower():
         if os.path.exists(image_bye):
             with open(image_bye, 'rb') as image_file:
                 await bot.send_photo(chat_id=update.message.chat_id, photo=InputFile(image_file))
+                
+            # Verificar si el mensaje es "adiós" y enviar un vídeo de despedida
+    if 'adios' in text.lower() or 'adiós' in text.lower():
+        if os.path.exists(video_bye):
+            with open(video_bye, 'rb') as video_file:
+                await bot.send_video(chat_id=update.message.chat_id, video=InputFile(video_file))
+    
     else:
         response = handle_response(text, context, update)
 
@@ -207,11 +219,11 @@ async def error(update: Update, context: ContextTypes):
     print(context.error)
     await update.message.reply_text('Ha ocurrido un error')
 
-# Función para enviar la imagen del catálogo
-async def send_catalog_image(update: Update):
-    if os.path.exists(image_path):
-        with open(image_path, 'rb') as image_file:
-            await bot.send_photo(chat_id=update.message.chat_id, photo=InputFile(image_file))
+# Función para enviar vídeo del catálogo
+async def send_catalog_video(update: Update):
+    if os.path.exists(video_path):
+        with open(video_path, 'rb') as video_file:
+            await bot.send_video(chat_id=update.message.chat_id, video=InputFile(video_file))
     else:
         print('No se encuentra la imagen')
 
@@ -230,7 +242,7 @@ if __name__ == '__main__':
     app.add_handler(CommandHandler('start', start))
     app.add_handler(CommandHandler('vapers', vapers))
     app.add_handler(CommandHandler('candies', candies))
-    app.add_handler(CommandHandler('catalogo', send_catalog_image))
+    app.add_handler(CommandHandler('catalogo', send_catalog_video))
     app.add_handler(CommandHandler('weed', weed))
     app.add_handler(CommandHandler('help', help))
     app.add_handler(CommandHandler('id', handle_chat_id))

@@ -3,6 +3,8 @@ vapers_path = PATH + '/vapers'
 candy_path = PATH + '/candy'
 weed_path = PATH + '/weed'
 image_path = PATH + '/Asset-2.jpeg'
+video_path = PATH + '/oreo_blizzard.mp4'
+video_bye = PATH + '/smk-g.mp4'
 image_bye = PATH + '/GFgEEU-WUAExx4B.jpeg'
 
 # Vapers

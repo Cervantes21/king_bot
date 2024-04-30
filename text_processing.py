@@ -14,6 +14,8 @@ def handle_response(text: str, context: ContextTypes, update: Update):
     
     elif 'adios' in processed_text or 'adiós' in processed_text:
         return 'Adiós ✌👽'
+    elif 'bye' in processed_text or '👋' in processed_text:
+        return 'Adiós ✌👽'
     elif 'catalogo' in processed_text or 'productos' in processed_text:
         return 'Enviando el catálogo...'
     
