@@ -4,9 +4,12 @@ from telegram import Update, Bot, InlineKeyboardMarkup, InlineKeyboardButton, Re
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 from telegram import InputFile 
 from dotenv import load_dotenv
+
+
 from text_processing import handle_response
 from paths_config import *
-# Variables:
+
+# Constantes:
 load_dotenv()
 token = os.getenv('TOKEN')
 bot = Bot(token=token)
@@ -44,19 +47,19 @@ async def handle_vaper_selection(update: Update, context: CallbackContext):
     
     if vaper_selected == 'vaper1':
         vaper_image_path = vaper_images[0]
-        vaper_name = "Vaper 1 Gelatho $250.00"
+        vaper_name = "Vaper 1 Gelatho $1,250.00"
     elif vaper_selected == 'vaper2':
         vaper_image_path = vaper_images[1]
-        vaper_name = "Vaper 2 Flavors $320.00"
+        vaper_name = "Vaper 2 Flavors $1,320.00"
     elif vaper_selected == 'vaper3':
         vaper_image_path = vaper_images[2]
-        vaper_name = "Vaper 3 Frost $450.00"
+        vaper_name = "Vaper 3 Frost $1,450.00"
     elif vaper_selected == 'vaper4':
         vaper_image_path = vaper_images[3]
-        vaper_name = "Vaper 4 Nova $585.00"
+        vaper_name = "Vaper 4 Nova $1,585.00"
     elif vaper_selected == 'vaper5':
         vaper_image_path = vaper_images[4]
-        vaper_name = "Vaper 5 Blaze $255.00"
+        vaper_name = "Vaper 5 Blaze $1,255.00"
 
     if vaper_image_path:
         with open(vaper_image_path, 'rb') as image_file:
@@ -81,16 +84,16 @@ async def handle_candy_selection(update: Update, context: CallbackContext):
     
     if candy_selected == 'candy1':
         candy_image_path = candy_images[0]
-        candy_name = "Candy 1 Gelatho"
+        candy_name = "Jolly rancher gummies🍬 \n10 gomitas de THC 600 mg. cada una \n$320.00"
     elif candy_selected == 'candy2':
         candy_image_path = candy_images[1]
-        candy_name = "Candy 2 Flavors"
+        candy_name = "Lifesavers gummies🍬 \n10 gomitas 5 sabores diferentes THC 600 mg. \n$524.00"
     elif candy_selected == 'candy3':
         candy_image_path = candy_images[2]
-        candy_name = "Candy 3 Frost"
+        candy_name = "Znickerz bites 🥧 \nTrozos de chocolates THC 500 mg. \n$384.00"
     elif candy_selected == 'candy4':
         candy_image_path = candy_images[3]
-        candy_name = "Candy 4 Nova"
+        candy_name = "THC-snickers 🍫 \nBarra de chocolate THC 1000 mg. \n$560.00"
 
     if candy_image_path:
         with open(candy_image_path, 'rb') as image_file:
@@ -114,19 +117,19 @@ async def handle_weed_selection(update: Update, context: CallbackContext):
     
     if weed_selected == 'weed1':
         weed_image_path = weed_images[0]
-        weed_name = "Cultivo 1"
+        weed_name = "Gelato 👾 $800.00 Oz. \nPromo 2 onzas Por $1,200.00 🔥 \nMedia onza $350.00 🎭"
     elif weed_selected == 'weed2':
         weed_image_path = weed_images[1]
-        weed_name = "Cultivo 2"
+        weed_name = "Gorilla 🦍 $500.00 Oz. \nPromo 2 onzas Por $800.00 🔥 \nMedia onza $300 🎭"
     elif weed_selected == 'weed3':
         weed_image_path = weed_images[2]
-        weed_name = "Cultivo 3"
+        weed_name = "Ethos Cookies 🍪 $600.00 Oz. \nPromo 2 onzas Por $1,000.00 🔥 \nMedia onza $350 🎭"
     elif weed_selected == 'weed4':
         weed_image_path = weed_images[3]
-        weed_name = "Cultivo 4"
+        weed_name = "Alien Mintz 👽💸 $2,200.00 Oz. \nPromo 2 onzas Por $3,900.00 🔥🔥 \nMedia onza $1,200.00 🎭"
     elif weed_selected == 'weed5':
         weed_image_path = weed_images[4]
-        weed_name = "Cultivo 5"
+        weed_name = "Candy Gas 🃏🍭 $1,200.00 Oz. \nPromo 2 onzas Por $2,000.00 🔥 \nMedia onza $650.00 🎭"
 
     if weed_image_path:
         with open(weed_image_path, 'rb') as image_file:
