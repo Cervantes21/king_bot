@@ -12,17 +12,39 @@ from paths_config import *
 
 # Create a new Web Server.
 from fastapi import FastAPI, Request
+from pydantic import BaseModel
 from waitress import serve
+
 
 # Constantes:
 load_dotenv()
 token = os.getenv('TOKEN')
 bot = Bot(token=token)
+web_server = FastAPI()
 
 # Rutas:
 # paths_config.py
 
+# Definir Modelo de Pydantic:
+class TelegramMessage(BaseModel):
+    chat_id: int
+    text: str
+    
+
+# Iniciamos la petición al servidor:
+@web_server.post("/send_message/")
+async def send_telegram_message(message: TelegramMessage):
+    try:
+        await bot.send_message(chat_id=message.chat_id, text=message.text)
+        return {"message": "Mensaje enviado con éxito"}
+    except Exception as e:
+        return {"error": f"Error al enviar el mensaje: {e}"}
+
+
+
 # Comandos:
+
+## Crear menú de bienvenida:
 async def start(update: Update, context: ContextTypes):
     # Crear los botones
     keyboard = [
@@ -35,11 +57,20 @@ async def start(update: Update, context: ContextTypes):
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
     await update.message.reply_text("Hola, soy un King. ¿En qué puedo ayudarte?\nElige una opción:", reply_markup=reply_markup)
 
+# Seleccionar la cantidad de gramos por vaper:
+async def type_vaper(update: Update, context: CallbackContext):
+        # Crear el menú de las dos opciones:
+    keyboard = [
+        [InlineKeyboardButton("Vapers 1 gramo", callback_data='vapers_1gm')],
+        [InlineKeyboardButton("Vapers 2 gramos", callback_data='vapers_2gm')]
+    ]
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    await update.message.reply_text("Selecciona la cantidad de gramos:", reply_markup=reply_markup)
 
 ## Vapers:
 async def vapers(update: Update, context: ContextTypes):
     # Crear el menú de selección de imágenes de Vapers
-    keyboard = [[InlineKeyboardButton(f"Vaper {i}", callback_data=f'vaper{i}')] for i in range(1, 6)]
+    keyboard = [[InlineKeyboardButton(f"Vaper {i}", callback_data=f'vaper{i}')] for i in range(1, 11)]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text("Selecciona un tipo de Vaper:", reply_markup=reply_markup)
 
@@ -65,7 +96,27 @@ async def handle_vaper_selection(update: Update, context: CallbackContext):
     elif vaper_selected == 'vaper5':
         vaper_image_path = vaper_images[4]
         vaper_name = "Vaper 5 Blaze $1,255.00"
-
+        
+    elif vaper_selected == 'vaper6':
+        vaper_image_path = vaper_images[5]
+        vaper_name = "Vaper 6 Blaze $1,255.00"
+    elif vaper_selected == 'vaper7':
+        vaper_image_path = vaper_images[6]
+        vaper_name = "Vaper 7 Flavors $1,320.00"
+    elif vaper_selected == 'vaper8':
+        vaper_image_path = vaper_images[7]
+        vaper_name = "Vaper 8 Frost $1,450.00"
+    elif vaper_selected == 'vaper9':
+        vaper_image_path = vaper_images[8]
+        vaper_name = "Vaper 9 Nova $1,585.00"
+    elif vaper_selected == 'vaper10':
+        vaper_image_path = vaper_images[9]
+        vaper_name = "Vaper 10 Blaze $1,255.00"
+    elif vaper_selected == 'vaper11':
+        vaper_image_path = vaper_images[10]
+        vaper_name = "Vaper 11 XXXXXX $XXX.00"
+    elif vaper_selected == 'vaper12':
+        vaper_image_path = vaper_images[12]
     if vaper_image_path:
         with open(vaper_image_path, 'rb') as image_file:
             await bot.send_photo(chat_id=query.message.chat_id, photo=InputFile(image_file), caption=vaper_name)
@@ -241,6 +292,7 @@ if __name__ == '__main__':
     # Crear comandos y manejadores de callbacks:
     app.add_handler(CommandHandler('start', start))
     app.add_handler(CommandHandler('vapers', vapers))
+    app.add_handler(CommandHandler('type_vapers', type_vaper))
     app.add_handler(CommandHandler('candies', candies))
     app.add_handler(CommandHandler('catalogo', send_catalog_video))
     app.add_handler(CommandHandler('weed', weed))
@@ -248,6 +300,8 @@ if __name__ == '__main__':
     app.add_handler(CommandHandler('id', handle_chat_id))
 
     # Agregar los manejadores de CallbackQueryHandler:
+    
+    app.add_handler(CallbackQueryHandler(type_vaper, pattern=r'^vapers_\d+gm$'))
     app.add_handler(CallbackQueryHandler(handle_vaper_selection, pattern='vaper.*'))
     app.add_handler(CallbackQueryHandler(handle_candy_selection, pattern='candy.*'))
     app.add_handler(CallbackQueryHandler(handle_weed_selection, pattern='weed.*'))
