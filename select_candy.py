@@ -28,16 +28,16 @@ async def handle_candy_selection(update: Update, context: CallbackContext):
     
     if candy_selected == 'candy1':
         candy_image_path = candy_images[0]
-        candy_name = "Jolly rancher gummies🍬 \n10 gomitas de THC 600 mg. cada una \n$320.00"
+        candy_name = "Jolly rancher gummies🍬 \n10 gomitas de THC 600 mg. cada una \n$600.00"
     elif candy_selected == 'candy2':
         candy_image_path = candy_images[1]
-        candy_name = "Lifesavers gummies🍬 \n10 gomitas 5 sabores diferentes THC 600 mg. \n$524.00"
+        candy_name = "Lifesavers gummies🍬 \n10 gomitas 5 sabores diferentes THC 600 mg. \n$600.00"
     elif candy_selected == 'candy3':
         candy_image_path = candy_images[2]
-        candy_name = "Znickerz bites 🥧 \nTrozos de chocolates THC 500 mg. \n$384.00"
+        candy_name = "Znickerz bites 🥧 \nTrozos de chocolates THC 500 mg. \n$500.00"
     elif candy_selected == 'candy4':
         candy_image_path = candy_images[3]
-        candy_name = "THC-snickers 🍫 \nBarra de chocolate THC 1000 mg. \n$560.00"
+        candy_name = "THC-snickers 🍫 \nBarra de chocolate THC 1000 mg. \n$800.00"
 
     if candy_image_path:
         with open(candy_image_path, 'rb') as image_file:
