@@ -5,7 +5,7 @@ from telegram import Bot
 from dotenv import load_dotenv
 
 # Commands and functions for bot:
-from command_help import help
+from command_help import command_help
 from handle_chatId import handle_chat_id
 from handle_error import error
 from video_send import *
@@ -58,7 +58,7 @@ if __name__ == '__main__':
     app.add_handler(CommandHandler('catalogo', send_catalog_video))
     app.add_handler(CommandHandler('Donuts', send_bbd_video))
     app.add_handler(CommandHandler('weed', weed))
-    app.add_handler(CommandHandler('help', help))
+    app.add_handler(CommandHandler('help', command_help))
     app.add_handler(CommandHandler('id', handle_chat_id))
 
     # Agregar los manejadores de CallbackQueryHandler:

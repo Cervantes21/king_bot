@@ -2,8 +2,10 @@ from telegram import Update
 from telegram.ext import ContextTypes
 
 ## Help:
-async def help(update: Update, context: ContextTypes):
-    await update.message.reply_text("Puedes iniciar la conversación con un Hola, y de ahí ir seleccionando la categoría. Comparte tus dudas: wa.link/7jvf7u 🫡")
+async def command_help(update: Update, context: ContextTypes):
+    url = 'wa.link/7jvf7u'
+    t = f"Puedes iniciar la conversación con un <code><b>Hola</b></code>,\nAhí puedes seleccionar la <u>categoría deseada</u>.\n<b>Comparte tus dudas</b>: {url} 🫡"
+    await update.message.reply_text(t, parse_mode='html')
 
 # # Función para mostrar el menú de Ayuda
 # async def sub_menu_help(update: Update, context: CallbackContext):

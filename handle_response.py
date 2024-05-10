@@ -12,6 +12,7 @@ from select_w import *
 from select_candy import *
 from video_send import *
 from start import start
+from command_help import command_help
 
 # Constantes:
 load_dotenv()
@@ -55,7 +56,7 @@ async def handle_message(update: Update, context: ContextTypes):
         return
     
     elif 'ayuda' in text.lower() or 'help' in text.lower():
-        await help(update, context)
+        await command_help(update, context)
         return
     
     elif 'donas' in text.lower() or 'donuts' in text.lower():
