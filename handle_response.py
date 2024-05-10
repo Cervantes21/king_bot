@@ -82,5 +82,16 @@ async def handle_message(update: Update, context: ContextTypes):
             with open(video_bye, 'rb') as video_file:
                 await bot.send_video(chat_id=update.message.chat_id, video=InputFile(video_file))
     
+    if 'gracias' in text.lower() or 'grax' in text.lower():
+        if os.path.exists(thanks):
+            with open(thanks, 'rb') as image_file:
+   
+                await bot.send_photo(chat_id=update.message.chat_id, photo=InputFile(image_file))
+   
+    elif 'thanks' in text.lower() or '🙏' in text.lower():
+        if os.path.exists(thanks):
+            with open(thanks, 'rb') as image_file:
+                await bot.send_photo(chat_id=update.message.chat_id, photo=InputFile(image_file))
+     
     else:
         response = handle_response(text, context, update)

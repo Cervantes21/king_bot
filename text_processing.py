@@ -3,19 +3,26 @@ from telegram.ext import ContextTypes
 ## Custom Conversation:
 def handle_response(text: str, context: ContextTypes, update: Update):
     processed_text = text.lower()
+    t = 'Un placer atenderte 😇🤌'
+    b = 'Adiós ✌👽'
     print(processed_text)
     if '✋' in processed_text or '🖐' in processed_text:
         return 'Hola, ¿Cómo puedo ayudarte? 🖐😋 Puedes decir "Quiero comprar" o enviar un "🚬"'
     elif 'quiero comprar' in processed_text:
         return 'Elige una opción del menú, o inicia con /start'
     
-    elif 'gracias' in processed_text:
-        return 'Un placer atenderte 😇🤌'
+    elif 'gracias' in processed_text or 'grax' in processed_text:
+        return t
+    
+    elif 'thanks' in processed_text or '🙏' in processed_text:
+        return t
     
     elif 'adios' in processed_text or 'adiós' in processed_text:
-        return 'Adiós ✌👽'
+        return b
+    
     elif 'bye' in processed_text or '👋' in processed_text:
-        return 'Adiós ✌👽'
+        return b
+    
     elif 'catalogo' in processed_text or 'productos' in processed_text:
         return 'Enviando el catálogo...'
     
@@ -24,6 +31,7 @@ def handle_response(text: str, context: ContextTypes, update: Update):
 
     elif 'dulce' in processed_text or 'chocolate' in processed_text:
         return '/candies'
+    
     elif '🆘' in processed_text or 'help' in processed_text:
         return '¿En que necesitas ayuda? FAQ: 🧐 /help'
     else:

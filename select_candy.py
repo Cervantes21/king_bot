@@ -15,9 +15,14 @@ bot = Bot(token=token)
 ## Candies:
 async def candies(update: Update, context: ContextTypes):
     # Crear el menú de selección de imágenes de Dulces con THC
-    keyboard = [[InlineKeyboardButton(f"Candy {i}", callback_data=f'candy{i}')] for i in range(1, 5)]
+    keyboard = [
+        [InlineKeyboardButton("Jolly rancher gummies🍬", callback_data='candy1')],
+        [InlineKeyboardButton("Lifesavers gummies🍬", callback_data='candy2')],
+        [InlineKeyboardButton("Znickerz bites🥧", callback_data='candy3')],
+        [InlineKeyboardButton("THC-snickers 🍫", callback_data='candy4')]
+    ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.message.reply_text("Selecciona un tipo de Dulces con THC:", reply_markup=reply_markup)
+    await update.message.reply_text("<b>Selecciona un botón para más información</b>:", reply_markup=reply_markup, parse_mode='html')
 
 ### Select Candy:
 async def handle_candy_selection(update: Update, context: CallbackContext):

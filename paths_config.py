@@ -7,6 +7,7 @@ video_path = PATH + '/raw/oreo_blizzard.mp4'
 video_bye = PATH + '/raw/smk-g.mp4'
 image_bye = PATH + '/raw/bye_file.jpeg'
 bbd_video = PATH + '/raw/blue-berry-donuts.mp4'
+thanks = PATH + '/Kings-Boulevard.jpg'
 
 # Vapers
 # vaper1 = vapers_path + 'vaper1.png'

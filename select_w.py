@@ -16,9 +16,16 @@ bot = Bot(token=token)
 ## Weed:
 async def weed(update: Update, context: ContextTypes):
     # Crear el menú de selección de imágenes de cultivos.
-    keyboard = [[InlineKeyboardButton(f"Weed {i}", callback_data=f'weed{i}')] for i in range(1, 6)]
+    keyboard = [
+        [InlineKeyboardButton("Gelato👾", callback_data='weed1')],
+        [InlineKeyboardButton("Gorilla🦍", callback_data='weed2')],
+        [InlineKeyboardButton("Ethos Cookies 🍪", callback_data='weed3')],
+        [InlineKeyboardButton("Alien Mintz👽", callback_data='weed4')],
+        [InlineKeyboardButton("Candy Gas 🃏🍭", callback_data='weed5')],
+    ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.message.reply_text("Contamos con diferentes tipos de Cultivos", reply_markup=reply_markup)
+    m = "Contamos con diferentes tipos de <code>Cultivos</code>"+"\n"+"<b>Selecciona un botón:</b>"
+    await update.message.reply_text(m, reply_markup=reply_markup, parse_mode='html')
 
 ### Select Weed:
 async def handle_weed_selection(update: Update, context: CallbackContext):
