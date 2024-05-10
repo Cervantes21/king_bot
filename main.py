@@ -53,8 +53,7 @@ if __name__ == '__main__':
 
     # Crear comandos y manejadores de callbacks:
     app.add_handler(CommandHandler('start', start))
-    app.add_handler(CommandHandler('vapers', vapers))
-    app.add_handler(CommandHandler('type_vaper', type_vaper))
+    app.add_handler(CommandHandler('vapers', selected_vaper))
     app.add_handler(CommandHandler('candies', candies))
     app.add_handler(CommandHandler('catalogo', send_catalog_video))
     app.add_handler(CommandHandler('Donuts', send_bbd_video))
@@ -64,8 +63,8 @@ if __name__ == '__main__':
 
     # Agregar los manejadores de CallbackQueryHandler:
     
-    app.add_handler(CallbackQueryHandler(type_vaper, pattern=r'^vapers_\d+gm$'))
-    app.add_handler(CallbackQueryHandler(handle_vaper_selection, pattern='vaper.*'))
+    app.add_handler(CallbackQueryHandler(response_vapers, pattern='vaper.*'))
+    app.add_handler(CallbackQueryHandler(response_vapers, pattern='close.*'))
     app.add_handler(CallbackQueryHandler(handle_candy_selection, pattern='candy.*'))
     app.add_handler(CallbackQueryHandler(handle_weed_selection, pattern='weed.*'))
 

@@ -32,18 +32,15 @@ async def handle_message(update: Update, context: ContextTypes):
         else:
             await update.message.reply_text("El bot solo responde a mensajes directos o comandos en grupos.")
             return
+        
     elif text.lower() == 'hola':  # Agregado para mostrar el menú de inicio al decir "Hola"
         await start(update, context)
         return
     
     elif 'vapers' in text.lower() or '🚬' in text.lower():  # Modificación para responder al comando /vapers
-        await vapers(update, context)
+        await selected_vaper(update, context)
         return
-    
-    elif 'vaper' in text.lower():
-        await type_vaper(update, context)
-        print(f'La Elección es: {text}')
-        return
+
     
     elif text.lower() == 'id':
         await update.message.reply_text(f"El ID de este chat es: {update.message.chat_id}")
