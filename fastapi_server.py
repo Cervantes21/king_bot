@@ -84,7 +84,7 @@ def handle_response(chat_id, message_id, text):
     t = 'Un placer atenderte 😇🤌'
     b = 'Adiós ✌👽'
     print(processed_text)
-    if '✋' in processed_text or '🖐' in processed_text:
+    if 'hola' in processed_text or '🖐' in processed_text:
         return 'Hola, ¿Cómo puedo ayudarte? 🖐😋 Puedes decir "Quiero comprar" o enviar un "🚬"'
     elif 'quiero comprar' in processed_text:
         return 'Elige una opción del menú, o inicia con /start'
