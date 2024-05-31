@@ -15,10 +15,6 @@ from select_w import *
 from start import start
 from handle_response import handle_message
 
-# Create a new Web Server.
-from fastapi import FastAPI, Request
-from pydantic import BaseModel
-from waitress import serve
 
 # Paths and Configures:
 from paths_config import *
@@ -27,23 +23,6 @@ from paths_config import *
 load_dotenv()
 token = os.getenv('TOKEN')
 bot = Bot(token=token)
-web_server = FastAPI()
-
-# Definir Modelo de Pydantic:
-class TelegramMessage(BaseModel):
-    chat_id: int
-    text: str
-    
-
-# Iniciamos la petición al servidor:
-@web_server.post("/send_message/")
-async def send_telegram_message(message: TelegramMessage):
-    try:
-        await bot.send_message(chat_id=message.chat_id, text=message.text)
-        return {"message": "Mensaje enviado con éxito"}
-    except Exception as e:
-        return {"error": f"Error al enviar el mensaje: {e}"}
-
 
 
 # Main:
