@@ -22,6 +22,7 @@ async def weed(update: Update, context: ContextTypes):
         [InlineKeyboardButton("Ethos Cookies 🍪", callback_data='weed3')],
         [InlineKeyboardButton("Alien Mintz👽", callback_data='weed4')],
         [InlineKeyboardButton("Candy Gas 🃏🍭", callback_data='weed5')],
+        [InlineKeyboardButton("CERRAR ❌", callback_data='close')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     m = "Contamos con diferentes tipos de <code>Cultivos</code>"+"\n"+"<b>Selecciona un botón:</b>"
@@ -34,7 +35,9 @@ async def handle_weed_selection(update: Update, context: CallbackContext):
     weed_image_path = None
     weed_name = None
     
-    if weed_selected == 'weed1':
+    if weed_selected == 'close':
+        await context.bot.delete_message(query.message.chat_id, query.message.message_id)
+    elif weed_selected == 'weed1':
         weed_image_path = weed_images[0]
         weed_name = "Gelato 👾 $800.00 Oz. \nPromo 2 onzas Por $1,200.00 🔥 \nMedia onza $350.00 🎭"
     elif weed_selected == 'weed2':
