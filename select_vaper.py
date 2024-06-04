@@ -28,6 +28,7 @@ async def vapers_1g(update: Update, context: CallbackContext):
         [InlineKeyboardButton("Gold Coast Clear Premiun🐻", callback_data='vaper3')],
         [InlineKeyboardButton("Tropical Gelato🍹", callback_data='vaper4')],
         [InlineKeyboardButton("Dosi Killer💀", callback_data='vaper5')],
+        [InlineKeyboardButton("CERRAR ❌", callback_data='close')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard_1g)
     await context.bot.send_message(chat_id=update.effective_chat.id, text="Selecciona un botón para ver el Vaper:", reply_markup=reply_markup)
@@ -40,7 +41,8 @@ async def vapers_2g(update: Update, context: CallbackContext):
         [InlineKeyboardButton("☠Packman: Durazno🍑", callback_data='vaper9')],
         [InlineKeyboardButton("☠Packman: Piña🍍", callback_data='vaper10')],
         [InlineKeyboardButton("👾Backpack Boyz: Cereza🍒", callback_data='vaper11')],
-        [InlineKeyboardButton("👾Backpack Boyz: Limón-cereza🍋🍒", callback_data='vaper12')]
+        [InlineKeyboardButton("👾Backpack Boyz: Limón-cereza🍋🍒", callback_data='vaper12')],
+        [InlineKeyboardButton("CERRAR ❌", callback_data='close')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard_2g)
     await context.bot.send_message(
@@ -56,7 +58,9 @@ async def send_vaper(update: Update, context: CallbackContext):
     vaper_image_path = None
     vaper_name = None
     
-    if vaper_selected == 'vaper1':
+    if vaper_selected == 'close':
+        context.bot.delete_message(query.message.chat_id, query.message.message_id)
+    elif vaper_selected == 'vaper1':
         vaper_image_path = vaper_images[0]
         vaper_name = "Lonzo Cream 🍨⚡\nSativa\n1000 mg. de THC\n$1,200.00"
     elif vaper_selected == 'vaper2':
