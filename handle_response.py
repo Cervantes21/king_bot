@@ -20,9 +20,44 @@ token = os.getenv('TOKEN')
 bot = Bot(token=token)
 
 
+# Create list of words:
+
+welcome_words = [
+    'hola', 'hi', 'menú', 'menu', '✌'
+    'hoooola', 'hols', 'holi', 'que onda',
+    'holis', '😀','😃','😄','😁','🖐','🖖',
+    '🖐','🫰','🤟','😎','🔥','❤','❤️‍🔥','👀'
+]
+
+candy_words = [
+    'candy','dulces','🍬','dulce',
+    'chocolate','candies','🍫','🍭',
+    'gomitas', 'jolly', 'thc', 'candies'
+]
+
+weed_words = [
+    'weed', 'cultivos', '🤙', '🍂',
+    'mota', 'mosh', 'gramos', 'cultivo',
+    '🌱', '💚', 'green', '🍀','🍁', 'fumar'
+]
+
+vapers_words = [
+    'vapers', 'vaper', 'cigarro',
+    'cigui', 'electronico' 'electrónico',
+    '🚬', 'smoke', 'fumar', 'vapear'
+]
+
+thanks_words = [
+    'gracias', 'thanks', 'grax', 'agradecido',
+    '🙏','🫶','👍','👏', 'thank you', 'grscias'
+    'gracia', 'graciotas'
+]
+
+
 ## Respuestas a mensajes:
 async def handle_message(update: Update, context: ContextTypes):
     message_type = update.message.chat.type
+    user_name = update.message.chat.username
     text = update.message.text
     if message_type == 'private':  # Mensaje en chat privado
         text = update.message.text.lower() if update.message else None
@@ -34,27 +69,26 @@ async def handle_message(update: Update, context: ContextTypes):
             await update.message.reply_text("El bot solo responde a mensajes directos o comandos en grupos.")
             return
         
-    elif text.lower() == 'hola':  # Agregado para mostrar el menú de inicio al decir "Hola"
+    elif any(word in text.lower() for word in welcome_words):
         await start(update, context)
         return
-    
-    elif 'vapers' in text.lower() or '🚬' in text.lower():  # Modificación para responder al comando /vapers
-        await selected_vaper(update, context)
-        return
-
     
     elif text.lower() == 'id':
         await update.message.reply_text(f"El ID de este chat es: {update.message.chat_id}")
         return
     
-    elif 'candy' in text.lower() or 'dulces' in text.lower():  # Corrección en esta línea
+    elif any(word in text.lower() for word in candy_words):
         await candies(update, context)
         return
     
-    elif 'weed' in text.lower() or 'cultivos' in text.lower(): # Agregado para responder al comando /weed
+    elif any(word in text.lower() for word in weed_words):
         await weed(update, context)
         return
     
+    elif any(word in text.lower() for word in vapers_words):
+        await selected_vaper(update, context)
+        return
+
     elif 'ayuda' in text.lower() or 'help' in text.lower():
         await command_help(update, context)
         return
@@ -63,7 +97,7 @@ async def handle_message(update: Update, context: ContextTypes):
         await send_bbd_video(update)
         return
     
-    response = handle_response(text, context, update)  # Mover la asignación aquí para evitar el error
+    response = handle_response(text, context, update)
 
     if response is not None:
         await update.message.reply_text(response)
@@ -89,13 +123,7 @@ async def handle_message(update: Update, context: ContextTypes):
             with open(video_bye, 'rb') as video_file:
                 await bot.send_video(chat_id=update.message.chat_id, video=InputFile(video_file))
     
-    if 'gracias' in text.lower() or 'grax' in text.lower():
-        if os.path.exists(thanks):
-            with open(thanks, 'rb') as image_file:
-   
-                await bot.send_photo(chat_id=update.message.chat_id, photo=InputFile(image_file))
-   
-    elif 'thanks' in text.lower() or '🙏' in text.lower():
+    elif any(word in text.lower() for word in thanks_words):
         if os.path.exists(thanks):
             with open(thanks, 'rb') as image_file:
                 await bot.send_photo(chat_id=update.message.chat_id, photo=InputFile(image_file))
