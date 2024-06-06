@@ -112,6 +112,8 @@ if __name__ == '__main__':
 
     # Cerrar la conexión a la base de datos al finalizar el script
     close_db_connection()
+
+
 # import os
 # import time
 # import asyncio

@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+# Archivo de DB
+>>>>>>> mod_instances
 *.db
 
 # Byte-compiled / optimized / DLL files
